@@ -158,7 +158,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Level of preparation for meetings (I just wing it - I start preparing from the previous meeting) "
+                    android:text="Level of preparation for meetings\n(I just wing it - I start prep at the previous meeting)"
                     android:textColor="@android:color/black" />
 
                 <SeekBar
@@ -182,7 +182,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Level of motivation in subject (Low-High)"
+                    android:text="Level of motivation in subject\n(I just want to pass - I need to learn this)"
                     android:textColor="@android:color/black" />
 
                 <SeekBar
@@ -206,7 +206,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Level of contribution in study groups (Low-High)"
+                    android:text="Level of contribution in study groups\n(I just listen - I chime in on every topic)"
                     android:textColor="@android:color/black" />
 
                 <SeekBar
@@ -230,7 +230,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Level of effort put into learning outside of classroom (Low-High)"
+                    android:text="Level of effort put into learning outside of classroom\n(I never study  - I spend hours every day studying)"
                     android:textColor="@android:color/black" />
 
                 <SeekBar
