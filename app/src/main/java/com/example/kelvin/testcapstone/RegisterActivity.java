@@ -44,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     //Register params
     String username, email, password, firstName, lastName;
     String response;
+    int studentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,13 +103,13 @@ public class RegisterActivity extends AppCompatActivity {
                 lastName = editLastName.getText().toString();
 
                 //Prevent SQL injection
-                if (Utility.preventAttack(username)) {
+                if (Utility.validateUsername(username)) {
                     Toast.makeText(thisContext,
                             "Invalid characters in username. Try again", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (Utility.preventAttack(email)) {
+                if (Utility.validateEmail(email)) {
                     Toast.makeText(thisContext,
                             "Invalid characters in email. Try again", Toast.LENGTH_SHORT).show();
                     return;
@@ -174,7 +175,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                hideKeyboard();
             }
 
             @Override
@@ -191,7 +192,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                hideKeyboard();
             }
 
             @Override
@@ -208,7 +209,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                hideKeyboard();
             }
 
             @Override
@@ -225,7 +226,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                hideKeyboard();
             }
 
             @Override
@@ -239,6 +240,8 @@ public class RegisterActivity extends AppCompatActivity {
     void createUser() {
         new CreateUserTask().execute();
     }
+
+    void addStats(){ new AddStatsTask().execute();}
 
     @Override
     public void onBackPressed() {
@@ -261,6 +264,115 @@ public class RegisterActivity extends AppCompatActivity {
                 mapParams.put("password", password);
                 mapParams.put("first_name", firstName);
                 mapParams.put("last_name", lastName);
+
+                //Make StringBuilder object of POST data
+                StringBuilder postData = new StringBuilder();
+                for (Map.Entry<String, Object> param : mapParams.entrySet()) {
+                    if (postData.length() != 0)
+                        postData.append('&');//Separate args with & char
+                    //Append username, password, and email and encode
+                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                    postData.append('=');
+                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+                }
+
+                //Get postData as bytes
+                byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+                //Open connection
+                HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+
+                //Write username and password and get token
+                connect.setRequestMethod("POST");
+                connect.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                connect.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+                connect.setDoOutput(true);
+                connect.getOutputStream().write(postDataBytes);
+
+                Reader input = new BufferedReader(new InputStreamReader(connect.getInputStream(), "UTF-8"));
+
+                //Get response as String
+                StringBuilder sb = new StringBuilder();
+                for (int c; (c = input.read()) >= 0; )
+                    sb.append((char) c);
+
+                response = sb.toString();
+
+                connect.disconnect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            try {
+                jsonResponse = new JSONObject(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            try {studentId = jsonResponse.getInt("id");}
+            catch (Exception e){e.printStackTrace();}
+            response = jsonResponse.toString();
+
+            //String Builder of errors, if any
+            StringBuilder errorMessages = new StringBuilder();
+
+            if (response.contains(DUPLICATE_USERNAME)) {
+                errorMessages.append("Username already taken\n");
+            }
+            if (response.contains(SHORT_PASSWORD)) {
+                errorMessages.append("Passwords must contain at least 8 characters\n");
+            }
+            if (response.contains(INVALID_EMAIL)) {
+                errorMessages.append("Emails must be valid\n");
+            }
+            if (response.contains(DUPLICATE_EMAIL)) {
+                errorMessages.append("Email already taken\n");
+            }
+
+            //There were errors
+            if (!errorMessages.toString().isEmpty()) {
+                String error = "Account creation failed with the following error(s):\n"
+                        + errorMessages.toString();
+
+                Toast.makeText(thisContext, error, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            addStats();
+
+        }
+    }
+
+    private class AddStatsTask extends AsyncTask<String, Void, String> {
+
+        int prep = seekPrep.getProgress();
+        int motivation = seekMotivation.getProgress();
+        int direction = seekDirection.getProgress();
+        int contribution = seekContribution.getProgress();
+        int student = 0;
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+
+                String myUrl = "https://vtebscefip.localtunnel.me/addstats/";
+                URL url = new URL(myUrl);
+
+                Map<String, Object> mapParams = new LinkedHashMap<>();
+                mapParams.put("student", studentId);
+                mapParams.put("prep", prep);
+                mapParams.put("contribution", motivation);
+                mapParams.put("direction", direction);
+                mapParams.put("motivation", contribution);
 
                 //Make StringBuilder object of POST data
                 StringBuilder postData = new StringBuilder();
@@ -308,37 +420,7 @@ public class RegisterActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            try {
-                jsonResponse = new JSONObject(response);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            response = jsonResponse.toString();
-
-            //String Builder of errors, if any
-            StringBuilder errorMessages = new StringBuilder();
-
-            if (response.contains(DUPLICATE_USERNAME)) {
-                errorMessages.append("Username already taken\n");
-            }
-            if (response.contains(SHORT_PASSWORD)) {
-                errorMessages.append("Passwords must contain at least 8 characters\n");
-            }
-            if (response.contains(INVALID_EMAIL)) {
-                errorMessages.append("Emails must be valid\n");
-            }
-            if (response.contains(DUPLICATE_EMAIL)) {
-                errorMessages.append("Email already taken\n");
-            }
-
-            //There were errors
-            if (!errorMessages.toString().isEmpty()) {
-                String error = "Account creation failed with the following error(s):\n"
-                        + errorMessages.toString();
-
-                Toast.makeText(thisContext, error, Toast.LENGTH_LONG).show();
-                return;
-            }
+            int x = 0;
 
             Toast.makeText(thisContext, "Account successfully created. Now please log in",
                     Toast.LENGTH_SHORT).show();
@@ -348,4 +430,5 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
     }
+
 }
