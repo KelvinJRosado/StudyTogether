@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 argNumber = editNumber.getText().toString();
                 hideKeyboard();
 
-                if (!Utility.preventAttack(argPrefix) || !Utility.preventAttack(argNumber)) {
+                if (false) {
                     Toast.makeText(thisContext, "Invalid characters. Try again", Toast.LENGTH_SHORT)
                             .show();
                     return;
@@ -231,19 +231,19 @@ public class MainActivity extends AppCompatActivity {
 
                 //Search by Course Number
                 if (argPrefix.isEmpty() && !argNumber.isEmpty()) {
-                    myUrl = "https://vtebscefip.localtunnel.me/courses/?format=json&"
+                    myUrl = "http://52.2.157.47:8000/courses/?format=json&"
                             + "number=" + argNumber;
                 }
                 //Search by Course Prefix
                 else if (argNumber.isEmpty() && !argPrefix.isEmpty()) {
-                    myUrl = "https://vtebscefip.localtunnel.me/courses/?format=json&prefix=" + argPrefix;
+                    myUrl = "http://52.2.157.47:8000/courses/?format=json&prefix=" + argPrefix;
                 }
                 //Search by Course Prefix and Number
                 else if (!argNumber.isEmpty() && !argPrefix.isEmpty()) {
-                    myUrl = "https://vtebscefip.localtunnel.me/courses/?format=json&prefix=" + argPrefix
+                    myUrl = "http://52.2.157.47:8000/courses/?format=json&prefix=" + argPrefix
                             + "&number=" + argNumber;
                 } else {
-                    myUrl = "https://vtebscefip.localtunnel.me/courses/?format=json";
+                    myUrl = "http://52.2.157.47:8000/courses/?format=json";
                 }
 
                 URL url = new URL(myUrl);

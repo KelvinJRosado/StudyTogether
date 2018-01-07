@@ -98,7 +98,7 @@ public class RemoveCourseActivity extends AppCompatActivity {
 
                 hideKeyboard();
 
-                if (!Utility.preventAttack(coursePrefix) || !Utility.preventAttack(courseNumber)) {
+                if (false) {
                     Toast.makeText(thisContext, "Invalid characters. Try again", Toast.LENGTH_SHORT)
                             .show();
                     return;
@@ -124,7 +124,7 @@ public class RemoveCourseActivity extends AppCompatActivity {
             //Authenticate
             try {
                 //Connect to url
-                URL url = new URL("https://vtebscefip.localtunnel.me/removecourse/?format=json");
+                URL url = new URL("http://52.2.157.47:8000/removecourse/?format=json");
 
                 //Store arguments
                 Map<String, Object> mapParams = new LinkedHashMap<>();
@@ -205,7 +205,7 @@ public class RemoveCourseActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            String myUrl = "https://vtebscefip.localtunnel.me/courses/?format=json&prefix=" + coursePrefix
+            String myUrl = "http://52.2.157.47:8000/courses/?format=json&prefix=" + coursePrefix
                     + "&number=" + courseNumber;
 
             try {

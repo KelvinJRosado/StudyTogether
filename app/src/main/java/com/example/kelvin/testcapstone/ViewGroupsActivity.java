@@ -116,7 +116,7 @@ public class ViewGroupsActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             try {
-                String myUrl = "https://vtebscefip.localtunnel.me/groupmembership/"
+                String myUrl = "http://52.2.157.47:8000/groupmembership/"
                         + "?student=" + studentPk;
 
                 URL url = new URL(myUrl);
@@ -188,7 +188,7 @@ public class ViewGroupsActivity extends AppCompatActivity {
                 stringBuilder = new StringBuilder();
 
                 try {
-                    String myUrl = "https://vtebscefip.localtunnel.me/groups/?id=" + pk;
+                    String myUrl = "http://52.2.157.47:8000/groups/?id=" + pk;
                     URL url = new URL(myUrl);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
@@ -243,7 +243,7 @@ public class ViewGroupsActivity extends AppCompatActivity {
                     StudyGroup group = myGroups.get(i);
                     int pk = group.coursePk;
 
-                    String myUrl = "https://vtebscefip.localtunnel.me/courses/"
+                    String myUrl = "http://52.2.157.47:8000/courses/"
                             + pk;
 
                     URL url = new URL(myUrl);
@@ -304,7 +304,7 @@ public class ViewGroupsActivity extends AppCompatActivity {
                 stringBuilder = new StringBuilder();
 
                 try {
-                    String myUrl = "https://vtebscefip.localtunnel.me/groupmembership/?group=" + groupPk;
+                    String myUrl = "http://52.2.157.47:8000/groupmembership/?group=" + groupPk;
                     URL url = new URL(myUrl);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
@@ -373,7 +373,7 @@ public class ViewGroupsActivity extends AppCompatActivity {
                     stringBuilder = new StringBuilder();
 
                     try {
-                        String myUrl = "https://vtebscefip.localtunnel.me/users/" + memberPk;
+                        String myUrl = "http://52.2.157.47:8000/users/" + memberPk;
                         URL url = new URL(myUrl);
                         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                         urlConnection.setRequestMethod("GET");

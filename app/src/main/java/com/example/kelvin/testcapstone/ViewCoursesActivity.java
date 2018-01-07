@@ -179,7 +179,7 @@ public class ViewCoursesActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try {
-                String myUrl = "https://vtebscefip.localtunnel.me/schedule/?format=json&student="
+                String myUrl = "http://52.2.157.47:8000/schedule/?format=json&student="
                         + studentPK;
 
                 URL url = new URL(myUrl);
@@ -239,7 +239,7 @@ public class ViewCoursesActivity extends AppCompatActivity {
                 int currentPk = coursePkList.get(i);
 
                 try {
-                    String myUrl = "https://vtebscefip.localtunnel.me/courses/?format=json&course_id="
+                    String myUrl = "http://52.2.157.47:8000/courses/?format=json&course_id="
                             + currentPk;
 
                     URL url = new URL(myUrl);

@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
             //Authenticate
             try {
                 //Connect to url
-                URL url = new URL("https://vtebscefip.localtunnel.me/api-token-auth/");
+                URL url = new URL("http://52.2.157.47:8000/api-token-auth/");
 
                 //Store arguments
                 Map<String, Object> mapParams = new LinkedHashMap<>();
@@ -281,7 +281,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try {
-                String myUrl = "https://vtebscefip.localtunnel.me/users/" + username + "/";
+                String myUrl = "http://52.2.157.47:8000/users/" + username + "/";
 
                 URL url = new URL(myUrl);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

@@ -87,7 +87,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
                 hideKeyboard();
 
-                if (!Utility.preventAttack(coursePrefix) || !Utility.preventAttack(courseNumber)) {
+                if (false) {
                     Toast.makeText(thisContext, "Invalid characters. Try again", Toast.LENGTH_SHORT)
                             .show();
                     return;
@@ -121,7 +121,7 @@ public class AddCourseActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            String myUrl = "https://vtebscefip.localtunnel.me/courses/?format=json&prefix=" + coursePrefix
+            String myUrl = "http://52.2.157.47:8000/courses/?format=json&prefix=" + coursePrefix
                     + "&number=" + courseNumber;
 
             try {
@@ -193,7 +193,7 @@ public class AddCourseActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             try {
-                String myUrl = "https://vtebscefip.localtunnel.me/addcourse/";
+                String myUrl = "http://52.2.157.47:8000/addcourse/";
                 URL url = new URL(myUrl);
 
                 Map<String, Object> mapParams = new LinkedHashMap<>();

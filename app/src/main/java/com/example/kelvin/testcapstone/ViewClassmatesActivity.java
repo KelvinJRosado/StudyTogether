@@ -110,7 +110,7 @@ public class ViewClassmatesActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             try {
-                String myUrl = "https://vtebscefip.localtunnel.me/schedule/?student="
+                String myUrl = "http://52.2.157.47:8000/schedule/?student="
                         + studentPk;
 
                 URL url = new URL(myUrl);
@@ -178,7 +178,7 @@ public class ViewClassmatesActivity extends AppCompatActivity {
                 for (int i = 0; i < courses.size(); i++) {
                     int pk = courses.get(i);
 
-                    String myUrl = "https://vtebscefip.localtunnel.me/courses/"
+                    String myUrl = "http://52.2.157.47:8000/courses/"
                             + pk;
 
                     URL url = new URL(myUrl);
@@ -245,7 +245,7 @@ public class ViewClassmatesActivity extends AppCompatActivity {
                 stringBuilder = new StringBuilder();
 
                 try {
-                    String myUrl = "https://vtebscefip.localtunnel.me/schedule/?courses=" + pk;
+                    String myUrl = "http://52.2.157.47:8000/schedule/?courses=" + pk;
 
                     URL url = new URL(myUrl);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -312,7 +312,7 @@ public class ViewClassmatesActivity extends AppCompatActivity {
                     stringBuilder = new StringBuilder();
 
                     try {
-                        String myUrl = "https://vtebscefip.localtunnel.me/users/" + memberPk;
+                        String myUrl = "http://52.2.157.47:8000/users/" + memberPk;
                         URL url = new URL(myUrl);
                         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                         urlConnection.setRequestMethod("GET");

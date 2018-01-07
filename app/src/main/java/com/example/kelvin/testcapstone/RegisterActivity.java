@@ -111,23 +111,23 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (Utility.validateEmail(email)) {
                     Toast.makeText(thisContext,
-                            "Invalid characters in email. Try again", Toast.LENGTH_SHORT).show();
+                            "Invalid email. Try again with a @georgiasouthern.edu email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (Utility.preventAttack(password)) {
+                if (false) {
                     Toast.makeText(thisContext,
                             "Invalid characters in password. Try again", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (Utility.preventAttack(firstName)) {
+                if (false) {
                     Toast.makeText(thisContext,
                             "Invalid characters in first name. Try again", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (Utility.preventAttack(lastName)) {
+                if (false) {
                     Toast.makeText(thisContext,
                             "Invalid characters in last name. Try again", Toast.LENGTH_SHORT).show();
                     return;
@@ -255,7 +255,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             try {
 
-                String myUrl = "https://vtebscefip.localtunnel.me/register/";
+                String myUrl = "http://52.2.157.47:8000/register/";
                 URL url = new URL(myUrl);
 
                 Map<String, Object> mapParams = new LinkedHashMap<>();
@@ -364,15 +364,15 @@ public class RegisterActivity extends AppCompatActivity {
 
             try {
 
-                String myUrl = "https://vtebscefip.localtunnel.me/addstats/";
+                String myUrl = "http://52.2.157.47:8000/addstats/";
                 URL url = new URL(myUrl);
 
                 Map<String, Object> mapParams = new LinkedHashMap<>();
                 mapParams.put("student", studentId);
                 mapParams.put("prep", prep);
-                mapParams.put("contribution", motivation);
+                mapParams.put("motivation", motivation);
                 mapParams.put("direction", direction);
-                mapParams.put("motivation", contribution);
+                mapParams.put("contribution", contribution);
 
                 //Make StringBuilder object of POST data
                 StringBuilder postData = new StringBuilder();
